@@ -3,7 +3,7 @@ import numpy as np
 from datetime import datetime
 import os
 
-def clean_airline_reviews(file_path):
+def clean_airline_reviews(file_path : str):
     # Read the CSV file
     dataFrame = pd.read_csv(file_path)
 
@@ -44,12 +44,12 @@ def clean_airline_reviews(file_path):
     # Clean the review text
     dataFrame['review_text'] = dataFrame['review_text'].apply(lambda x: str(x).strip() if pd.notnull(x) else '')
 
-    # Reset index after modifications
+    # Reset the index
     dataFrame = dataFrame.reset_index(drop=True)
 
     return dataFrame
 
-def process_folder(folder_path):
+def process_folder(folder_path: str):
     # Get all CSV files in the folder
     csv_files = [f for f in os.listdir(folder_path) if f.endswith('.csv')]
 
@@ -73,15 +73,14 @@ def process_folder(folder_path):
     # Combine all cleaned data into one DataFrame
     combined_df = pd.concat(all_data, ignore_index=True)
 
-    # Save the combined cleaned data
+    # Save the cleaned data
     combined_file_path = os.path.join(folder_path, "all_airlines_reviews_cleaned.csv")
     combined_df.to_csv(combined_file_path, index=False)
 
     print(f"Combined cleaned data saved to 'all_airlines_reviews_cleaned.csv'")
     print(f"Total number of reviews across all airlines: {len(combined_df)}")
 
-# Example usage
 folder_path = './Data'
-process_folder(folder_path)
-
-print("All CSV files in the folder have been processed and combined.")
+if __name__ == "__main__":
+    process_folder(folder_path)
+    print("All CSV files in the folder have been processed and combined.")
