@@ -1,0 +1,7 @@
+beautifulsoup4
+pandas
+numpy
+requests
+pinecone-client
+sentence_transformers
+python-dotenv
