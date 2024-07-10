@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AirInsight AI</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        #query-input { width: 100%; padding: 10px; margin-bottom: 10px; }
+        #submit-btn { padding: 10px 20px; }
+        #response { margin-top: 20px; white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+    <h1>FlightInsight AI</h1>
+    <input type="text" id="query-input" placeholder="Enter your query about airlines">
+    <button id="submit-btn">Submit</button>
+    <div id="response"></div>
+
+    <script>
+        const socket = new WebSocket('ws://localhost:8000/ws');
+        const queryInput = document.getElementById('query-input');
+        const submitBtn = document.getElementById('submit-btn');
+        const responseDiv = document.getElementById('response');
+
+        submitBtn.addEventListener('click', () => {
+            const query = queryInput.value;
+            socket.send(query);
+            responseDiv.innerHTML = 'Waiting for response...';
+        });
+
+        let responseBuffer = '';
+        const flushInterval = 100; // Flush every 100ms
+        let lastFlushTime = Date.now();
+
+        function flushResponse() {
+            if (responseBuffer) {
+                responseDiv.innerHTML += responseBuffer;
+                responseBuffer = '';
+                lastFlushTime = Date.now();
+            }
+        }
+
+        socket.onmessage = function(event) {
+            if (event.data === "[END_OF_RESPONSE]") {
+                flushResponse(); // Ensure any remaining buffer is flushed
+                responseDiv.innerHTML += '<br>Response complete.';
+            } else {
+                responseBuffer += event.data;
+                if (Date.now() - lastFlushTime > flushInterval) {
+                    flushResponse();
+                }
+            }
+        };
+
+        socket.onclose = function(event) {
+            flushResponse(); // Ensure any remaining buffer is flushed
+            responseDiv.innerHTML += '<br>Connection closed.';
+        };
+
+        // Periodically flush the buffer even if no new data is received
+        setInterval(flushResponse, flushInterval);
+    </script>
+</body>
+</html>

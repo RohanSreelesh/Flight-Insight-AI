@@ -89,6 +89,10 @@ def retrieve_relevant_reviews(query: str) -> Tuple[List[Dict], Dict]:
     filter_params = validate_and_filter_parameters(extracted_params)
     print("Validated filter parameters:", filter_params)
     
+    if not filter_params:
+        print("No valid filter parameters found. Returning empty results.")
+        return [], extracted_params
+    
     # Convert query to vector embedding
     query_vector = embed_query(query)
     
