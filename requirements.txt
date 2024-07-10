@@ -5,3 +5,5 @@ requests
 pinecone-client
 sentence_transformers
 python-dotenv
+google-generativeai
+fastapi
