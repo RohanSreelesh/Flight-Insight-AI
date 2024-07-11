@@ -6,6 +6,10 @@ from RAG_Pipeline.constants import SUPPORTED_AIRLINES, TRAVELLER_TYPES, SEAT_TYP
 import json
 from typing import Tuple
 from sentence_transformers import SentenceTransformer
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
