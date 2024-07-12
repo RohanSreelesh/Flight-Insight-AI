@@ -5,6 +5,9 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import TypewriterEffect from './TypeWriterEffect';
 
+const API_URL = process.env.REACT_APP_API_URL;
+const WS_URL = process.env.REACT_APP_WS_URL;
+
 const FlightInsightAI = () => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
@@ -16,12 +19,12 @@ const FlightInsightAI = () => {
   const ws = useRef(null);
 
   useEffect(() => {
-    fetch('http://localhost:8000/supported-airlines')
+    fetch(`${API_URL}/supported-airlines`)
       .then(response => response.json())
       .then(data => setAirlines(data.airlines))
       .catch(error => console.error('Error fetching airlines:', error));
 
-    ws.current = new WebSocket('ws://localhost:8000/ws');
+    ws.current = new WebSocket(WS_URL);
     ws.current.onopen = () => console.log('WebSocket Connected');
     ws.current.onclose = () => console.log('WebSocket Disconnected');
     return () => {
