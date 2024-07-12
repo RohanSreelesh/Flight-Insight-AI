@@ -20,6 +20,7 @@ app = FastAPI()
 
 origins = [
     "http://localhost:3000",
+    "https://flight-insight-ai.vercel.app"
 ]
 
 app.add_middleware(
