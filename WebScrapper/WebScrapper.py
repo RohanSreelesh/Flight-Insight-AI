@@ -82,7 +82,7 @@ airlines = [
 # Scrape data for each airline
 for airline_name, airline_url in airlines:
     print(f"Scraping data for {airline_name}...")
-    df = scrape_airline(airline_name, airline_url)
+    df = scrape_airline(airline_name, airline_url,20 )
     df.to_csv(f"{airline_name.replace(' ', '_')}_reviews.csv", index=False)
     print(f"Data for {airline_name} saved to {airline_name.replace(' ', '_')}_reviews.csv")
     time.sleep(5)  # Wait between airlines to avoid overloading the server
