@@ -92,7 +92,7 @@ const FlightInsightAI = () => {
   };
 
    return (
-    <div className="flex flex-col h-screen bg-gray-800 text-gray-100">
+    <div className="flex flex-col h-[100dvh] bg-gray-800 text-gray-100">
       <header className="bg-blue-800 text-white p-3 shadow-md">
         <div className="max-w-5xl mx-auto flex justify-between items-center">
           <h1 className="text-xl font-semibold flex items-center">
@@ -121,8 +121,11 @@ const FlightInsightAI = () => {
       <div className="flex-grow overflow-auto p-4 mx-auto max-w-3xl w-full">
         {messages.length === 0 ? (
           <div className="flex items-center justify-center h-full">
-            <p className="text-4xl text-gray-400 font-sans">
-              ✈️ Ask me about <TypewriterEffect airlines={airlines} />
+            <p className="text-2xl sm:text-3xl text-gray-400 font-sans text-center">
+              ✈️ Ask me about{' '}
+              <span className="block sm:inline">
+                <TypewriterEffect airlines={airlines} />
+              </span>
             </p>
           </div>
         ) : (
