@@ -42,19 +42,22 @@ logger = logging.getLogger(__name__)
 def create_prompt(query: str, reviews: List[Dict]) -> str:
     if not reviews:
         airlines_list = ", ".join(SUPPORTED_AIRLINES)
-        return f"""You are an AI assistant specialized in providing insights about airline reviews. 
+        return f"""You are an AI assistant specialized in providing insights about airline reviews.
         Unfortunately, no relevant reviews were found for the following query: "{query}"
-        Please inform the user that either they did not specify a supported airline or the airline they mentioned is not currently supported. 
+        Please inform the user that either they did not specify a supported airline or the airline they mentioned is not currently supported.
         Apologize for the inconvenience and ask them to try again with a query that includes one of the following supported airlines: {airlines_list}.
         Encourage the user to be specific about which airline they are inquiring about in their next query."""
 
-    system_prompt = """You are an AI assistant specialized in providing insights about airline reviews. 
-    Use the provided reviews to answer the user's query. Be informative and base your answers on the reviews. 
-    If the reviews don't contain relevant information to answer the query, say so. Be verbose and provide detailed responses."""
+    system_prompt = """You are an AI assistant specialized in providing insights about airline reviews.
+    Use the provided reviews to answer the user's query, but do not mention specific reviews.
+    Instead, provide an overview of the general sentiment and key points from the reviews.
+    Be informative and base your answers on the reviews, but present the information in a natural, conversational way.
+    If the reviews don't contain relevant information to answer the query, say so.
+    Aim to be helpful and engaging in your responses, as if you're having a friendly conversation about airlines."""
 
-    review_text = "\n".join([f"Review {i+1}: {review['metadata']['review_text']}" for i, review in enumerate(reviews[:5])])
-
-    full_prompt = f"{system_prompt}\n\nRelevant Reviews:\n{review_text}\n\nUser Query: {query}\n\nResponse:"
+    review_text = "\n".join([review['metadata']['review_text'] for review in reviews[:5]])
+    
+    full_prompt = f"{system_prompt}\n\nRelevant Review Content (Do not reference directly):\n{review_text}\n\nUser Query: {query}\n\nResponse:"
     return full_prompt
 
 async def stream_response(websocket: WebSocket, response):
