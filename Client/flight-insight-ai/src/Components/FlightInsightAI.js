@@ -98,9 +98,10 @@ const FlightInsightAI = () => {
             <button onClick={clearChat} className="p-2 hover:bg-blue-700 rounded-full">
               <Trash2 className="w-5 h-5" />
             </button>
-            <button className="p-2 hover:bg-blue-700 rounded-full">
+            {/* for later when we add a settings page */}
+            {/* <button className="p-2 hover:bg-blue-700 rounded-full">
               <Settings className="w-5 h-5" />
-            </button>
+            </button> */}
           </div>
         </div>
       </header>
