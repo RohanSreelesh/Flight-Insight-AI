@@ -14,6 +14,7 @@ from dotenv import load_dotenv
 
 # Load environment variables
 load_dotenv()
+TOP_K = int(os.getenv("TOP_K"))
 
 # Initialize FastAPI
 app = FastAPI()
@@ -55,7 +56,7 @@ def create_prompt(query: str, reviews: List[Dict]) -> str:
     If the reviews don't contain relevant information to answer the query, say so.
     Aim to be helpful and engaging in your responses, as if you're having a friendly conversation about airlines."""
 
-    review_text = "\n".join([review['metadata']['review_text'] for review in reviews[:5]])
+    review_text = "\n".join([review['metadata']['review_text'] for review in reviews[:TOP_K]])
     
     full_prompt = f"{system_prompt}\n\nRelevant Review Content (Do not reference directly):\n{review_text}\n\nUser Query: {query}\n\nResponse:"
     return full_prompt

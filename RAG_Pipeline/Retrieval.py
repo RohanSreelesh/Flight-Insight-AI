@@ -16,7 +16,7 @@ GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 
 # Constants
 INDEX_NAME = "airline-reviews"
-TOP_K = 10
+TOP_K = os.getenv("TOP_K")
 
 # Init
 embedding_model = SentenceTransformer('all-MiniLM-L6-v2') 
