@@ -20,6 +20,12 @@ const FlightInsightAI = () => {
   const ws = useRef(null);
   const isSafari = /iPhone|iPod|iPad/.test(navigator.userAgent) && /Safari/.test(navigator.userAgent) && !/(Chrome|CriOS|FxiOS|OPiOS|mercury)/.test(navigator.userAgent);
 
+  const trackEvent = (eventName, eventData) => {
+    if (window.umami) {
+      window.umami.track(eventName, eventData);
+    }
+  };
+
   useEffect(() => {
     fetch(`${API_URL}/supported-airlines`)
       .then(response => response.json())
@@ -44,7 +50,7 @@ const FlightInsightAI = () => {
 
   const handleSendMessage = () => {
     if (inputMessage.trim() === '') return;
-
+    trackEvent('Message Sent', { message: inputMessage });
     const newMessage = { type: 'user', content: inputMessage };
     setMessages((prevMessages) => [...prevMessages, newMessage]);
     setInputMessage('');
