@@ -4,6 +4,7 @@ import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import TypewriterEffect from './TypeWriterEffect';
+import './customScrollbar.css';
 
 const API_URL = process.env.REACT_APP_API_URL;
 const WS_URL = process.env.REACT_APP_WS_URL;
@@ -118,7 +119,7 @@ const FlightInsightAI = () => {
       </div>
     )}
 
-      <div className="flex-grow overflow-auto p-4 mx-auto max-w-3xl w-full">
+      <div className="flex-grow overflow-auto p-4 mx-auto max-w-3xl w-full custom-scrollbar">
         {messages.length === 0 ? (
           <div className="flex items-center justify-center h-full">
             <p className="text-2xl sm:text-3xl text-gray-400 font-sans text-center">
