@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Send, Plane, Loader, Trash2, Settings } from 'lucide-react';
+import { Send, Plane, Loader, Trash2, AlertTriangle  } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
@@ -17,6 +17,7 @@ const FlightInsightAI = () => {
   const [airlines, setAirlines] = useState([]);
   const messagesEndRef = useRef(null);
   const ws = useRef(null);
+  const isSafari = /iPhone|iPod|iPad/.test(navigator.userAgent) && /Safari/.test(navigator.userAgent) && !/(Chrome|CriOS|FxiOS|OPiOS|mercury)/.test(navigator.userAgent);
 
   useEffect(() => {
     fetch(`${API_URL}/supported-airlines`)
@@ -108,6 +109,15 @@ const FlightInsightAI = () => {
           </div>
         </div>
       </header>
+
+    {isSafari && (
+      <div className="bg-yellow-500 text-black p-2 text-center">
+        <AlertTriangle className="inline-block mr-2" />
+        Mobile Safari users may experience issues with messages getting stuck on "AI is thinking". 
+        For the best experience, please use another browser if possible.
+      </div>
+    )}
+
       <div className="flex-grow overflow-auto p-4 mx-auto max-w-3xl w-full">
         {messages.length === 0 ? (
           <div className="flex items-center justify-center h-full">
