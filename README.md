@@ -1,6 +1,6 @@
 # Flight-Insight-AI
 ## Introduction
-Flight Insight AI is a chatbot system designed to provide intelligent insights and analysis of airline reviews. Using natural language processing and machine learning techniques, Flight Insight AI offers users a seamless interface to query and understand airline experiences based on real customer reviews.
+Flight Insight AI is a chatbot system designed to provide intelligent insights and analysis of airline reviews. Using natural language processing and machine learning techniques, Flight Insight AI offers users a seamless interface to query and understand airline experiences based on real customer reviews. Try it [Here](https://flight-insight-ai.vercel.app/)!
 
 ## System Architecture
 ![mermaid-diagram-2024-07-13-120412](https://github.com/user-attachments/assets/c3aa582d-6ab0-48b9-9323-aa083435d192)
